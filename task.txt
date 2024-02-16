@@ -1,0 +1,19 @@
+This is an extremely simplified version of what one main aspect of our LeadHub system looks like. 
+---------------
+The scenario is as follows:
+Our frontend Campaigns ( = landing pages) consist of multiple Steps, the user's (we call them "Participation") current Step stored in session. Submitting the current Step will lead to the next and there is no return to the previous Step.
+
+When a user views the landing page = Campaign, CampaignFrontendController::display will determine which Step is to be displayed (based on the previous Step in session, if available) and uses the Step's given fileName to return a view.
+
+Each Step displays a form. CampaignFrontendController::submit handles the submit of that form. Validation of this form is determined by a Step's given StepFields. Every given field is mandatory and must be filled. When date_of_birth is given, the age must be 18+. On validation failure, we return to the form and diplay the errors. On success, we would like to store the data as a "Participation" (further Steps enrich the already existing Participation).
+While any StepField can appear on any Step, an email address always has to be part of the very first Step.
+
+Within our Backend System, we can view submitted Participations.
+
+-------
+Task: 
+-------
+For simplicity, let us assume these Campaigns are viewed via a "campaign/{CampaignUuid}" route. Define a route that uses the CampaignFrontendController::display method as well as a route for the submmit method.
+Provide a migration to create necessary tables for given models as well as a new "Participation" model. Add a seeder for an example Campaign with 2 Steps and its StepFields. 
+Fill in the logic of the CampaignFrontendController (we do not expect blades / view files)
+Additionally, provide an example of a protected route so that logged in users can view all submitted Participations. Create the necessary Controller to display Participations. Use pagination, to only display 20 Participations at once (again, we do not expect the actual view, just the Controller)
