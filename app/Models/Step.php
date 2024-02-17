@@ -12,7 +12,7 @@ class Step extends Model
         'title', 'campaign_id', 'order_num', 'fileName'
     ];
 
-
+    protected $table = 'steps';
 
     public function campaign()
     {

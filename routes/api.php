@@ -17,7 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-// Define routes for displaying campaign steps and handling form submissions
-Route::get('campaign/{campaign}', [CampaignFrontendController::class, 'display'])->name('campaign.display');
-Route::post('campaign/{campaign}/submit', [CampaignFrontendController::class, 'submit'])->name('campaign.submit');

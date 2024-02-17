@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('step_fields', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('step_id');
+            $table->string('input');
             $table->timestamps();
         });
     }

@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('steps', function (Blueprint $table) {
             $table->id();
+            $table->uuid('campaign_id');
+            $table->string('title');
+            $table->integer('order_num');
+            $table->string('fileName');
             $table->timestamps();
+
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
         });
     }
 

@@ -9,7 +9,11 @@ class Participation extends Model
 {
     use HasFactory;
 
-    protected $guarded = [
-        'id'
+    protected $fillable = [
+        'session_id',
+        'campaign_id',
+        'step'
     ];
+
+    protected $table = 'participations';
 }

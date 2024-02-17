@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participations', function (Blueprint $table) {
-            $table->id();
+        Schema::create('campaigns', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('title');
+            $table->date('end_date');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('participations');
+        Schema::dropIfExists('campaigns');
     }
 };

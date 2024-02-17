@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CampaignFrontendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('campaign/{campaign}', [CampaignFrontendController::class, 'display'])->name('campaign.display');
+Route::post('campaign/{campaign}/submit', [CampaignFrontendController::class, 'submit'])->name('campaign.submit');
+
+
+Route::get('/step/{step}', [CampaignFrontendController::class, 'session'])->name('session');

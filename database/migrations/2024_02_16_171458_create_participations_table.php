@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('participations', function (Blueprint $table) {
             $table->id();
+            $table->string('session_id');
+            $table->uuid('campaign_id');
+            $table->string('step');
             $table->timestamps();
+
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
         });
     }
 
