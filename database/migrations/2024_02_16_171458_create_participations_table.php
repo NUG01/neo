@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('session_id');
             $table->uuid('campaign_id');
             $table->string('step');
+            $table->boolean('completed')->default(false);
+            $table->json('data')->nullable();
             $table->timestamps();
 
             $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');

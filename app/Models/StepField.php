@@ -24,4 +24,14 @@ class StepField extends Model
         'city',
         'country',
     ];
+
+    public function step()
+    {
+        return $this->belongsTo(Step::class);
+    }
+
+    public function values()
+    {
+        return $this->hasMany(StepFieldValue::class);
+    }
 }
