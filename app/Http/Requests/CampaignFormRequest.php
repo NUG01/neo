@@ -27,7 +27,6 @@ class CampaignFormRequest extends FormRequest
      */
     public function rules(): array
     {
-        dd(Session::getId());
         $campaign = $this->route('campaign');
         $step = (new CampaignService())->determineStep($campaign);
 

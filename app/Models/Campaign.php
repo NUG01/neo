@@ -40,7 +40,12 @@ class Campaign extends Model
         return $this->hasMany(Participation::class);
     }
 
-    public function stepTitle()
+    public function firstStep()
+    {
+        return $this->steps->first();
+    }
+
+    public function firstStepTitle()
     {
         return $this->steps->first()->title;
     }

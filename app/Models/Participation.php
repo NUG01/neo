@@ -27,7 +27,6 @@ class Participation extends Model
 
     public static function findBySession($sessionId = null)
     {
-        // dd(Session::getId());
         $sessionId = $sessionId ?: Session::getId();
         return static::where('session_id', $sessionId)->where('completed', false)->first();
     }
