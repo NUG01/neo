@@ -14,8 +14,8 @@ if (!function_exists('session_step')) {
 if (!function_exists('session_step_item')) {
   function session_step_item($campaign)
   {
-    $participation = Participation::findBySession();
-    $step = Step::where('campaign_id', $campaign->id)->where('title', $participation->step)->first();
+    $step = null;
+    if ($participation = Participation::findBySession()) $step = Step::where('campaign_id', $campaign->id)->where('title', $participation->step)->first();
     return  $step ? $step : $campaign->firstStep();
   }
 }
@@ -23,8 +23,8 @@ if (!function_exists('session_step_item')) {
 if (!function_exists('session_step_id')) {
   function session_step_id($campaign)
   {
-    $participation = Participation::findBySession();
-    $step = Step::where('campaign_id', $campaign->id)->where('title', $participation->step)->first();
+    $step = null;
+    if ($participation = Participation::findBySession()) $step = Step::where('campaign_id', $campaign->id)->where('title', $participation->step)->first();
     return $step ? $step->id : $campaign->steps->first()->id;
   }
 }

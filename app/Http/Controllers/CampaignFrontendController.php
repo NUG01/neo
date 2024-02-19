@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CampaignFormRequest;
+use App\Http\Services\CampaignService;
 use App\Models\Campaign;
 use App\Models\Participation;
 use App\Models\StepFieldValue;
+use App\Repositories\CampaignRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -30,20 +32,14 @@ class CampaignFrontendController extends Controller
 		 * if a campaign's end_date is reached, return an "expired" blade instead
 		 **/
 
-		$session_id = Session::getId();
-		$participation =	Participation::findBySession();
-		$step = session_step_item($campaign);
-		$new_partipication =	Participation::updateOrCreate(
-			['session_id' => $session_id, 'campaign_id' => $campaign->id, 'completed' => false],
-			['step' => $step->title]
-		);
+		if ($campaign->end_date < now()) return view('expired');
 
-		if ($campaign->end_date < now()) {
-			return view('expired');
-		}
+		$step = session_step_item($campaign);
+
+		(new CampaignRepository())->insertParticipation($campaign, $step);
+
 
 		$title = $step->title;
-
 		return view('steps.' . $step->fileName, compact('title'));
 	}
 
@@ -63,6 +59,7 @@ class CampaignFrontendController extends Controller
 		 **/
 
 		$participationData = $request->validated();
+		$campaignService = new CampaignService();
 
 		$participation =	Participation::findBySession();
 		$old_data = $participation->data;
@@ -71,8 +68,7 @@ class CampaignFrontendController extends Controller
 
 		$participation->update(['data' => $participationData]);
 
-		if ($participation->step === $campaign->lastStepTitle()) {
-			$participation->update(['completed' => true]);
+		if ($campaignService->completeCampaign($campaign, $participation)) {
 			return redirect()->route('welcome')->with('success', 'Campaign completed successfully.');
 		}
 

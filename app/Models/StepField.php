@@ -29,9 +29,4 @@ class StepField extends Model
     {
         return $this->belongsTo(Step::class);
     }
-
-    public function values()
-    {
-        return $this->hasMany(StepFieldValue::class);
-    }
 }

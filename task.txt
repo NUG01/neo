@@ -17,3 +17,10 @@ For simplicity, let us assume these Campaigns are viewed via a "campaign/{Campai
 Provide a migration to create necessary tables for given models as well as a new "Participation" model. Add a seeder for an example Campaign with 2 Steps and its StepFields. 
 Fill in the logic of the CampaignFrontendController (we do not expect blades / view files)
 Additionally, provide an example of a protected route so that logged in users can view all submitted Participations. Create the necessary Controller to display Participations. Use pagination, to only display 20 Participations at once (again, we do not expect the actual view, just the Controller)
+
+
+
+
+
+
+

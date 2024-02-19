@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('participations', function (Blueprint $table) {
             $table->id();
-            $table->string('session_id');
+            $table->string('session_id')->nullable();
             $table->uuid('campaign_id');
-            $table->string('step');
+            $table->string('step', 50)->nullable();
             $table->boolean('completed')->default(false);
             $table->json('data')->nullable();
             $table->timestamps();

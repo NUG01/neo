@@ -19,14 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('participations/index', [CampaignFrontendController::class, 'index'])->name('campaign.index');
+
+
+Route::group(['prefix' => 'campaign'], function () {
+    Route::get('/{campaign}', [CampaignFrontendController::class, 'display'])->name('campaign.display');
+    Route::post('/{campaign}/submit', [CampaignFrontendController::class, 'submit'])->name('campaign.submit');
 });
 
-Route::get('campaign/{campaign}', [CampaignFrontendController::class, 'display'])->name('campaign.display');
-Route::post('campaign/{campaign}/submit', [CampaignFrontendController::class, 'submit'])->name('campaign.submit');
-
-
-
-
-Route::get('/step/{step}', [CampaignFrontendController::class, 'session'])->name('session');
+Route::get('participations/index', [CampaignFrontendController::class, 'index'])->middleware('auth')->name('campaign.index');
